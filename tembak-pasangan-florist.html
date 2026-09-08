@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  /* ============================================================
+     GANTI DI SINI: nama kamu & nama pasanganmu
+     ============================================================ */
+  :root {
+    --your-name: "Aku";
+    --partner-name: "Sayang";
+  }
+
+  :root{
+    --ivory: #FBF6EF;
+    --paper: #FFFEFC;
+    --deep-green: #3E5240;
+    --green-soft: #7C9473;
+    --rose: #BE6E7C;
+    --rose-deep: #8C4655;
+    --blush: #ECD6D2;
+    --gold: #C7A257;
+    --ink: #382F2A;
+    --ink-soft: #736459;
+    --line: rgba(62, 82, 64, 0.18);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0; padding:0;
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    min-height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 28px;
+    overflow-x: hidden;
+    background-color: var(--ivory);
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(190,110,124,0.07), transparent 40%),
+      radial-gradient(circle at 92% 88%, rgba(124,148,115,0.09), transparent 42%);
+  }
+
+  .stage{
+    position: relative;
+    width: 100%;
+    max-width: 580px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 18px 50px rgba(62,82,64,0.09);
+    padding: 68px 52px;
+    min-height: 460px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .stage::before{
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    pointer-events: none;
+  }
+
+  .sprig{
+    position:absolute;
+    width: 108px;
+    height: 108px;
+    color: var(--green-soft);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  .sprig.top-left{ top: -8px; left: -8px; }
+  .sprig.bottom-right{ bottom: -8px; right: -8px; transform: rotate(180deg); }
+  .sprig .bloom{ color: var(--rose); }
+  .sprig .bloom-center{ color: var(--gold); }
+
+  .content{ position: relative; z-index: 2; }
+
+  .screen{
+    display:none;
+    animation: rise 0.65s cubic-bezier(.2,.8,.2,1);
+  }
+  .screen.active{ display:block; }
+
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(14px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .eyebrow{
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--green-soft);
+    margin: 0 0 10px 0;
+  }
+
+  .flourish{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .flourish .line{
+    height:1px;
+    flex:1;
+    background: var(--line);
+  }
+  .flourish svg{ width:16px; height:16px; color: var(--rose); flex-shrink:0; }
+
+  h1, h2{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.18;
+    margin: 0 0 20px 0;
+    color: var(--deep-green);
+  }
+
+  h1{ font-size: 40px; }
+  h2{ font-size: 30px; }
+
+  p.lede{
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin: 0 0 34px 0;
+    max-width: 42ch;
+    font-style: normal;
+  }
+
+  .btn{
+    appearance:none;
+    border: none;
+    background: var(--rose);
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 14px 30px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 20px rgba(140,70,85,0.22);
+  }
+  .btn:hover{ background: var(--rose-deep); transform: translateY(-1px); }
+  .btn:focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .btn-ghost{
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    box-shadow: none;
+  }
+  .btn-ghost:hover{ background: var(--ivory); color: var(--ink); transform:none; }
+
+  .options{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .option{
+    text-align:left;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .option:hover{ border-color: var(--rose); background: var(--paper); }
+  .option.chosen{ border-color: var(--rose); background: #fff; color: var(--rose-deep); }
+
+  .progress{
+    display:flex;
+    gap: 6px;
+    margin-bottom: 30px;
+  }
+  .progress span{
+    height: 3px;
+    flex:1;
+    background: var(--line);
+    border-radius: 2px;
+    overflow:hidden;
+  }
+  .progress span i{
+    display:block;
+    height:100%;
+    width:0%;
+    background: var(--rose);
+    transition: width 0.4s ease;
+  }
+
+  textarea.answer{
+    width:100%;
+    min-height: 90px;
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: var(--ivory);
+    color: var(--ink);
+    resize: vertical;
+    margin-bottom: 22px;
+  }
+  textarea.answer:focus{ outline: none; border-color: var(--rose); }
+
+  .final-question{
+    text-align:center;
+  }
+  .final-question .flourish{ justify-content:center; }
+  .final-question .flourish .line{ max-width: 60px; }
+  .final-question h2{ font-size: 32px; }
+
+  .decision-row{
+    position: relative;
+    display:flex;
+    justify-content:center;
+    gap: 18px;
+    margin-top: 38px;
+    min-height: 60px;
+  }
+
+  #yesBtn{ font-size: 16px; padding: 16px 34px; }
+  #noBtn{ position: relative; }
+
+  .celebration{ text-align:center; }
+  .celebration .flourish{ justify-content:center; }
+  .celebration h1{ font-size: 34px; }
+
+  canvas#petals{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  footer.credit{
+    text-align:center;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 26px;
+    opacity: 0.65;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  @media (max-width: 480px){
+    .stage{ padding: 52px 30px; }
+    h1{ font-size: 32px; }
+    .sprig{ width: 72px; height: 72px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .screen{ animation: none !important; }
+  }
+
+  .music-toggle{
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 18px rgba(62,82,64,0.14);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor: pointer;
+    color: var(--rose);
+    transition: transform 0.2s ease;
+  }
+  .music-toggle:hover{ transform: scale(1.06); }
+  .music-toggle svg{ width:20px; height:20px; }
+  .music-toggle .icon-off{ display:none; }
+  .music-toggle.muted .icon-on{ display:none; }
+  .music-toggle.muted .icon-off{ display:block; }
+
+  /* ---------- Envelope opening scene ---------- */
+  .envelope-scene{
+    text-align:center;
+  }
+
+  .envelope{
+    position: relative;
+    width: 230px;
+    height: 156px;
+    margin: 6px auto 30px;
+    perspective: 900px;
+    cursor: pointer;
+  }
+
+  .envelope .letter{
+    position:absolute;
+    left: 8%;
+    top: 10px;
+    width: 84%;
+    height: 122px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 0 10px 24px rgba(62,82,64,0.12);
+    z-index: 1;
+    transform: translateY(28px);
+    opacity: 0.96;
+    transition: transform 0.7s cubic-bezier(.2,.8,.2,1) 0.25s, z-index 0s 0.25s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 14px;
+  }
+  .envelope .letter svg{ width: 26px; height:26px; color: var(--rose); opacity:0.7; }
+
+  .envelope .pocket{
+    position:absolute;
+    inset:0;
+    z-index: 2;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    clip-path: polygon(0 100%, 0 30%, 50% 62%, 100% 30%, 100% 100%);
+    box-shadow: 0 14px 30px rgba(62,82,64,0.14);
+  }
+
+  .envelope .flap{
+    position:absolute;
+    left:0; right:0; top:0;
+    height: 96px;
+    background: linear-gradient(155deg, var(--blush), var(--rose));
+    clip-path: polygon(0 0, 100% 0, 50% 88%);
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    z-index: 3;
+    border-radius: 6px 6px 0 0;
+    transition: transform 0.7s cubic-bezier(.4,.2,.2,1), z-index 0s 0.7s;
+  }
+
+  .envelope .seal{
+    position:absolute;
+    top: 46px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: #fff;
+    z-index: 4;
+    box-shadow: 0 4px 10px rgba(199,162,87,0.4);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .envelope .seal svg{ width:16px; height:16px; }
+
+  .envelope.opened .flap{
+    transform: rotateX(-165deg);
+    z-index: 0;
+  }
+  .envelope.opened .letter{
+    transform: translateY(-64px);
+    z-index: 5;
+  }
+  .envelope.opened .seal{
+    opacity: 0;
+    transform: translateX(-50%) scale(0.4);
+  }
+
+  .envelope-hint{
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 10px;
+    transition: opacity 0.3s ease;
+  }
+  .envelope-scene.opened .envelope-hint{ opacity: 0; }
+
+  .read-letter-btn{
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s;
+  }
+  .envelope-scene.opened .read-letter-btn{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="petals"></canvas>
+
+<audio id="bgm" loop preload="auto">
+  <source src="risk-it-all-by-bruno-mars.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-toggle" id="musicToggle" onclick="toggleMusic()" aria-label="Nyalakan/matikan musik">
+  <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 6v12l-4-3H3V9h2l4-3z"/>
+    <path d="M16 8.5c1.2 1 1.2 6 0 7"/>
+    <path d="M18.5 6c2.2 2 2.2 10 0 12"/>
+  </svg>
+  <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 6v12l-4-3H3V9h2l4-3z"/>
+    <path d="M16 9l5 6M21 9l-5 6"/>
+  </svg>
+</button>
+
+<div class="stage">
+
+  <!-- corner botanical ornaments -->
+  <svg class="sprig top-left" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <path d="M6 6 C 30 10, 45 25, 52 50"/>
+    <path d="M14 20 C 22 18, 28 22, 30 30" fill="none"/>
+    <path d="M24 34 C 33 30, 40 34, 42 42" fill="none"/>
+    <path d="M6 6 C 10 16, 8 24, 2 30" fill="none"/>
+    <g class="bloom">
+      <circle cx="54" cy="52" r="6"/>
+      <circle cx="62" cy="48" r="6"/>
+      <circle cx="60" cy="58" r="6"/>
+      <circle cx="50" cy="60" r="6"/>
+      <circle cx="47" cy="49" r="6"/>
+    </g>
+    <circle class="bloom-center" cx="55" cy="54" r="3.4" fill="currentColor" stroke="none"/>
+  </svg>
+
+  <svg class="sprig bottom-right" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <path d="M6 6 C 30 10, 45 25, 52 50"/>
+    <path d="M14 20 C 22 18, 28 22, 30 30" fill="none"/>
+    <path d="M24 34 C 33 30, 40 34, 42 42" fill="none"/>
+    <path d="M6 6 C 10 16, 8 24, 2 30" fill="none"/>
+    <g class="bloom">
+      <circle cx="54" cy="52" r="6"/>
+      <circle cx="62" cy="48" r="6"/>
+      <circle cx="60" cy="58" r="6"/>
+      <circle cx="50" cy="60" r="6"/>
+      <circle cx="47" cy="49" r="6"/>
+    </g>
+    <circle class="bloom-center" cx="55" cy="54" r="3.4" fill="currentColor" stroke="none"/>
+  </svg>
+
+  <div class="content">
+
+    <!-- SCREEN -1: ENVELOPE OPENING -->
+    <section class="screen active envelope-scene" id="screen-envelope">
+      <p class="eyebrow">SEBUAH SURAT UNTUKMU</p>
+      <div class="envelope" id="envelope" onclick="openEnvelope()">
+        <div class="letter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c1.8 2 1.8 4.6 0 6.6C10.2 7.6 10.2 5 12 3z"/><path d="M12 3c-2.4.6-4 2.6-4 5s1.6 4.4 4 5c2.4-.6 4-2.6 4-5s-1.6-4.4-4-5z"/></svg>
+        </div>
+        <div class="pocket"></div>
+        <div class="flap"></div>
+        <div class="seal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c1.8 2 1.8 4.6 0 6.6C10.2 7.6 10.2 5 12 3z"/><path d="M12 3c-2.4.6-4 2.6-4 5s1.6 4.4 4 5c2.4-.6 4-2.6 4-5s-1.6-4.4-4-5z"/></svg>
+        </div>
+      </div>
+      <p class="envelope-hint">Ketuk amplopnya, ya</p>
+      <button class="btn read-letter-btn" onclick="goTo('screen-hero')">Baca suratnya</button>
+    </section>
+
+    <!-- SCREEN 0: HERO -->
+    <section class="screen" id="screen-hero">
+      <p class="eyebrow">UNTUK KAMU</p>
+      <div class="flourish">
+        <span class="line"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c1.8 2 1.8 4.6 0 6.6C10.2 7.6 10.2 5 12 3z"/><path d="M12 3c-2.4.6-4 2.6-4 5s1.6 4.4 4 5c2.4-.6 4-2.6 4-5s-1.6-4.4-4-5z"/><circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        <span class="line"></span>
+      </div>
+      <h1>Ada beberapa hal yang ingin aku tanyakan padamu.</h1>
+      <p class="lede">Nggak lama kok. Cuma beberapa pertanyaan kecil, sebelum satu pertanyaan yang paling penting.</p>
+      <button class="btn" onclick="goTo('screen-q1')">Boleh, lanjut</button>
+    </section>
+
+    <!-- SCREEN 1 -->
+    <section class="screen" id="screen-q1">
+      <div class="progress"><span><i style="width:33%"></i></span><span><i style="width:0%"></i></span><span><i style="width:0%"></i></span></div>
+      <p class="eyebrow">PERTANYAAN 1 DARI 3</p>
+      <h2>Kalau lagi ketemu aku, biasanya kamu gimana?</h2>
+      <div class="options" id="q1-options">
+        <button class="option">Senyum-senyum sendiri</button>
+        <button class="option">Pura-pura jutek padahal senang</button>
+        <button class="option">Cerita panjang lebar duluan</button>
+        <button class="option">Diam saja, tapi hepi</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 2 -->
+    <section class="screen" id="screen-q2">
+      <div class="progress"><span><i style="width:100%"></i></span><span><i style="width:66%"></i></span><span><i style="width:0%"></i></span></div>
+      <p class="eyebrow">PERTANYAAN 2 DARI 3</p>
+      <h2>Momen bareng aku yang paling nempel di ingatan kamu, yang mana?</h2>
+      <textarea class="answer" id="q2-answer" placeholder="Tulis di sini..."></textarea>
+      <button class="btn" onclick="goTo('screen-q3')">Lanjut</button>
+    </section>
+
+    <!-- SCREEN 3 -->
+    <section class="screen" id="screen-q3">
+      <div class="progress"><span><i style="width:100%"></i></span><span><i style="width:100%"></i></span><span><i style="width:100%"></i></span></div>
+      <p class="eyebrow">PERTANYAAN 3 DARI 3</p>
+      <h2>Siap dengar satu pertanyaan lagi? Yang ini agak penting.</h2>
+      <div class="options" id="q3-options">
+        <button class="option">Siap, sini!</button>
+        <button class="option">Deg-degan, tapi siap</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: FINAL -->
+    <section class="screen final-question" id="screen-final">
+      <div class="flourish">
+        <span class="line"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c1.8 2 1.8 4.6 0 6.6C10.2 7.6 10.2 5 12 3z"/><path d="M12 3c-2.4.6-4 2.6-4 5s1.6 4.4 4 5c2.4-.6 4-2.6 4-5s-1.6-4.4-4-5z"/><circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        <span class="line"></span>
+      </div>
+      <h2 id="finalQuestionText">Maukah kamu jadi pasangan aku?</h2>
+      <div class="decision-row">
+        <button class="btn" id="yesBtn" onclick="sayYes()">Ya, mau</button>
+        <button class="btn btn-ghost" id="noBtn" onmouseover="dodge()" ontouchstart="dodge()" onclick="dodge()">Belum siap</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: CELEBRATION -->
+    <section class="screen celebration" id="screen-celebration">
+      <div class="flourish">
+        <span class="line"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c1.8 2 1.8 4.6 0 6.6C10.2 7.6 10.2 5 12 3z"/><path d="M12 3c-2.4.6-4 2.6-4 5s1.6 4.4 4 5c2.4-.6 4-2.6 4-5s-1.6-4.4-4-5z"/><circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        <span class="line"></span>
+      </div>
+      <h1 id="celebTitle">Terima kasih sudah bilang iya</h1>
+      <p class="lede" style="margin:0 auto;">Aku senang banget. Semoga langkah selanjutnya sama indahnya seperti bunga-bunga di halaman ini.</p>
+    </section>
+
+    <footer class="credit">dibuat dengan sepenuh hati</footer>
+  </div>
+</div>
+
+<script>
+  var partnerName = getCSSVar('--partner-name');
+  var yourName = getCSSVar('--your-name');
+
+  function getCSSVar(name){
+    var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v.replace(/^"|"$/g, '');
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('finalQuestionText').textContent =
+      'Maukah kamu, ' + partnerName + ', jadi pasangan ' + yourName + '?';
+  });
+
+  var musicStarted = false;
+  function tryStartMusic(){
+    if(musicStarted) return;
+    var bgm = document.getElementById('bgm');
+    bgm.volume = 0.55;
+    bgm.play().then(function(){
+      musicStarted = true;
+    }).catch(function(){
+      // browser masih memblokir autoplay, tombol musik tetap bisa dipakai manual
+    });
+  }
+
+  function toggleMusic(){
+    var bgm = document.getElementById('bgm');
+    var btn = document.getElementById('musicToggle');
+    if(bgm.paused){
+      bgm.play().catch(function(){});
+      musicStarted = true;
+      btn.classList.remove('muted');
+    } else {
+      bgm.pause();
+      btn.classList.add('muted');
+    }
+  }
+
+  function openEnvelope(){
+    var envelope = document.getElementById('envelope');
+    var scene = document.getElementById('screen-envelope');
+    if(envelope.classList.contains('opened')) return;
+    envelope.classList.add('opened');
+    scene.classList.add('opened');
+    tryStartMusic();
+    setTimeout(function(){ burst(16); }, 350);
+  }
+
+  function goTo(id){
+    tryStartMusic();
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+    burst(20);
+  }
+
+  document.getElementById('q1-options').addEventListener('click', function(e){
+    if(!e.target.classList.contains('option')) return;
+    highlight(e.target, 'q1-options');
+    setTimeout(function(){ goTo('screen-q2'); }, 350);
+  });
+
+  document.getElementById('q3-options').addEventListener('click', function(e){
+    if(!e.target.classList.contains('option')) return;
+    highlight(e.target, 'q3-options');
+    setTimeout(function(){ goTo('screen-final'); }, 350);
+  });
+
+  function highlight(el, groupId){
+    document.querySelectorAll('#' + groupId + ' .option').forEach(function(o){ o.classList.remove('chosen'); });
+    el.classList.add('chosen');
+  }
+
+  var dodgeCount = 0;
+  function dodge(){
+    var noBtn = document.getElementById('noBtn');
+    var row = document.querySelector('.decision-row');
+    dodgeCount++;
+
+    var rowRect = row.getBoundingClientRect();
+    var maxX = Math.max(0, rowRect.width - noBtn.offsetWidth - 20);
+    var randX = (Math.random() * maxX) - (maxX/2);
+    var randY = (Math.random() * 40) - 20;
+
+    noBtn.style.transform = 'translate(' + randX + 'px,' + randY + 'px)';
+
+    var yesBtn = document.getElementById('yesBtn');
+    var scale = Math.min(1 + dodgeCount * 0.08, 1.6);
+    yesBtn.style.transform = 'scale(' + scale + ')';
+
+    if(dodgeCount >= 4){
+      noBtn.style.opacity = Math.max(0.15, 1 - dodgeCount * 0.15);
+    }
+  }
+
+  function sayYes(){
+    goTo('screen-celebration');
+    finaleRain(140);
+  }
+
+  // ============================================================
+  // Mesin partikel kelopak bunga: ambient (mengambang terus),
+  // burst (meletup tiap pindah halaman), finale (hujan besar di penutup)
+  // ============================================================
+  var canvas = document.getElementById('petals');
+  var ctx = canvas.getContext('2d');
+  var petalColors = ['#BE6E7C', '#ECD6D2', '#7C9473', '#C7A257'];
+  var particles = [];
+  var ambientCap = 26;
+  var frameCount = 0;
+
+  function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function makeAmbientPetal(){
+    return {
+      mode: 'ambient',
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * 60,
+      size: 6 + Math.random() * 6,
+      rot: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 1.2,
+      speed: 0.4 + Math.random() * 0.5,
+      swayAmp: 14 + Math.random() * 18,
+      swaySpeed: 0.3 + Math.random() * 0.4,
+      phase: Math.random() * Math.PI * 2,
+      alpha: 0.35 + Math.random() * 0.25,
+      color: petalColors[Math.floor(Math.random() * petalColors.length)]
+    };
+  }
+
+  // burst: kelopak meletup dari tengah atas kartu lalu jatuh & memudar
+  function burst(count){
+    var stageEl = document.querySelector('.stage');
+    var rect = stageEl.getBoundingClientRect();
+    var originX = rect.left + rect.width / 2;
+    var originY = rect.top + 60;
+
+    for(var i=0; i<count; i++){
+      var angle = (Math.random() * Math.PI) - Math.PI/2 - Math.PI/2;
+      var force = 1.5 + Math.random() * 3;
+      particles.push({
+        mode: 'burst',
+        x: originX,
+        y: originY,
+        vx: Math.cos(angle) * force,
+        vy: Math.sin(angle) * force - 1.5,
+        size: 5 + Math.random() * 6,
+        rot: Math.random() * 360,
+        rotSpeed: (Math.random() - 0.5) * 8,
+        life: 0,
+        maxLife: 45 + Math.random() * 25,
+        alpha: 1,
+        color: petalColors[Math.floor(Math.random() * petalColors.length)]
+      });
+    }
+  }
+
+  // finale: hujan kelopak besar dan lama, dipakai di halaman penutup
+  function finaleRain(count){
+    for(var i=0; i<count; i++){
+      particles.push({
+        mode: 'finale',
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * canvas.height,
+        size: 8 + Math.random() * 8,
+        rot: Math.random() * 360,
+        rotSpeed: (Math.random() - 0.5) * 2,
+        speed: 1 + Math.random() * 1.6,
+        swayAmp: 20 + Math.random() * 30,
+        swaySpeed: 0.4 + Math.random() * 0.6,
+        phase: Math.random() * Math.PI * 2,
+        life: 0,
+        maxLife: 420 + Math.random() * 200,
+        alpha: 1,
+        color: petalColors[Math.floor(Math.random() * petalColors.length)]
+      });
+    }
+  }
+
+  function drawPetal(x, y, size, rot, alpha, color){
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(x, y);
+    ctx.rotate(rot * Math.PI/180);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, size/2, size, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function tick(){
+    frameCount++;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // spawn ambient petals gradually, capped
+    var ambientCount = particles.filter(function(p){ return p.mode === 'ambient'; }).length;
+    if(frameCount % 25 === 0 && ambientCount < ambientCap){
+      particles.push(makeAmbientPetal());
+    }
+
+    for(var i = particles.length - 1; i >= 0; i--){
+      var p = particles[i];
+
+      if(p.mode === 'ambient'){
+        p.y += p.speed;
+        p.rot += p.rotSpeed;
+        var sway = Math.sin(frameCount * 0.02 * p.swaySpeed + p.phase) * (p.swayAmp * 0.03);
+        p.x += sway;
+        if(p.y > canvas.height + 20){
+          p.y = -20;
+          p.x = Math.random() * canvas.width;
+        }
+        drawPetal(p.x, p.y, p.size, p.rot, p.alpha, p.color);
+
+      } else if(p.mode === 'burst'){
+        p.life++;
+        p.vy += 0.12;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.rotSpeed;
+        p.alpha = Math.max(0, 1 - p.life / p.maxLife);
+        drawPetal(p.x, p.y, p.size, p.rot, p.alpha, p.color);
+        if(p.life >= p.maxLife) particles.splice(i, 1);
+
+      } else if(p.mode === 'finale'){
+        p.life++;
+        p.y += p.speed;
+        p.rot += p.rotSpeed;
+        var fsway = Math.sin(p.life * 0.02 * p.swaySpeed + p.phase) * p.swayAmp;
+        drawPetal(p.x + fsway, p.y, p.size, p.rot, p.alpha, p.color);
+        if(p.life >= p.maxLife || p.y > canvas.height + 40) particles.splice(i, 1);
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+</script>
+
+</body>
+</html>
